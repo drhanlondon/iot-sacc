@@ -117,38 +117,19 @@ func getHistoryOfState(stub shim.ChaincodeStubInterface, args []string) (string,
 		}
 
 		val, _ := strconv.Atoi(string(resultModification.GetValue()))
-		// t0 := resultModification.GetTimestamp()
-		// t1 := &t0
-		// t2 := strconv.Itoa(int(t1.Seconds))
-		//t1 := strconv.Itoa(int(t0.time))
-
+		
 		data := history {
 			TxID: resultModification.GetTxId(),
 			Value: val,
-			//Timestamp: t0,
 			IsDelete: resultModification.GetIsDelete(),
 		}
 
 		response.NumberOfTransactions ++
 		response.History = append(response.History, data)
 
-		//data := "{\"txId\": " + resultModification.GetTxId()
-		//data += " , \"value\": " + string(resultModification.GetValue()) + "}"
-	
-		// if counter > 0 {
-		// 	data = ", " + data
-		// }
-	
-		// resultJSON += data
-		//counter ++
 	}
 
 	historyQueryIterator.Close()
-
-	// resultJSON += "]"
-	// resultJSON = "{\"numberOfTransactions\": " + strconv.Itoa(counter) + ", \"historyOfTransactions\": " + resultJSON + "}"
-
-	//return resultJSON, nil
 
 	responseJSON, _ := json.Marshal(response)
 
